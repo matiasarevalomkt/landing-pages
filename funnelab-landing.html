@@ -229,7 +229,7 @@ footer p{font-size:11px;color:rgba(255,255,255,0.20)}
   <div class="urg-icon"><svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
   <div>
     <div class="urg-text">Agendar una asesor&iacute;a gratuita</div>
-    <div class="urg-sub">solo toma segundos</div>
+    <div class="urg-sub">solo toma unos segundos</div>
   </div>
 </div>
   <div>
@@ -252,7 +252,16 @@ footer p{font-size:11px;color:rgba(255,255,255,0.20)}
   <div class="f-divider"></div>
 
   <div class="f-row">
-    <label class="f-label">Cu&aacute;ntos vendedores ten&eacute;s</label>
+    <label class="f-label">&iquest;Qu&eacute; tipo de viajes vend&eacute;s?</label>
+    <div class="og c1" id="g-tipo">
+      <div class="oc" onclick="pick('g-tipo',this,'Emisivo (Caribe, Europa, Asia)')"><div class="or"></div><div class="ot">Emisivo (Caribe, Europa, Asia)</div></div>
+      <div class="oc" onclick="pick('g-tipo',this,'Nacional')"><div class="or"></div><div class="ot">Nacional</div></div>
+      <div class="oc" onclick="pick('g-tipo',this,'Tours / Excursiones')"><div class="or"></div><div class="ot">Tours / Excursiones</div></div>
+    </div>
+  </div>
+  <div class="f-divider"></div>
+<div class="f-row">
+    <label class="f-label">&iquest;Cu&aacute;ntos vendedores ten&eacute;s?</label>
     <div class="og c1" id="g-vendedores">
       <div class="oc" onclick="pick('g-vendedores',this,'Solo yo (1 vendedor)')"><div class="or"></div><div class="ot">Solo yo (1 vendedor)</div></div>
       <div class="oc" onclick="pick('g-vendedores',this,'2 a 5 vendedores')"><div class="or"></div><div class="ot">Equipo chico (2 a 5 vendedores)</div></div>
@@ -270,7 +279,7 @@ footer p{font-size:11px;color:rgba(255,255,255,0.20)}
   </div>
 
   <div class="f-row">
-    <label class="f-label">&iquest;Cu&aacute;l ser&iacute;a para vos una inversi&oacute;n congruente, en base a los resultados que busc&aacute;s?</label>
+    <label class="f-label">&iquest;Cu&aacute;l ser&iacute;a para vos una inversi&oacute;n CONGRUENTE, en base a los resultados que busc&aacute;s?</label>
     <div class="og c1" id="g-inversion">
       <div class="oc" onclick="pick('g-inversion',this,'Hasta 300 USD')"><div class="or"></div><div class="ot">Hasta 300 USD</div></div>
       <div class="oc" onclick="pick('g-inversion',this,'De 400 a 800 USD')"><div class="or"></div><div class="ot">De 400 a 800 USD</div></div>
@@ -297,11 +306,12 @@ footer p{font-size:11px;color:rgba(255,255,255,0.20)}
 </div>
 
 <script>
-var vals={vendedores:null,meta:null,inversion:null};
+var vals={tipo:null,vendedores:null,meta:null,inversion:null};
 function pick(g,card,val){
   document.querySelectorAll("#"+g+" .oc").forEach(function(c){c.classList.remove("sel")});
   card.classList.add("sel");
-  if(g==="g-vendedores") vals.vendedores=val;
+  if(g==="g-tipo") vals.tipo=val;
+  else if(g==="g-vendedores") vals.vendedores=val;
   else if(g==="g-meta") vals.meta=val;
 }
 
@@ -314,13 +324,14 @@ function enviar(){
   if(!email){alert("Ingresa tu email.");return}
   if(!wsp){alert("Ingresa tu WhatsApp.");return}
   if(!agencia){alert("Ingresa el nombre de tu agencia.");return}
+  if(!vals.tipo){alert("Seleccion\u00e1 el tipo de viajes que vend\u00e9s.");return}
   if(!vals.vendedores){alert("Selecciona cuantos vendedores tenes.");return}
   if(!vals.meta){alert("Selecciona tu experiencia con Meta Ads.");return}
   if(!vals.inversion){alert("Seleccion\u00e1 una inversi\u00f3n congruente.");return}
   var msg="Hola Matias! Me interesa conocer el sistema Funnelab para mi agencia."
     +" Soy "+nombre+". Instagram: "+agencia+"."
     +" Tenemos "+vals.vendedores+"."
-    +" Publicidad en Meta: "+vals.meta+". Inversi\u00f3n congruente: "+vals.inversion+"."
+    +" Tipo de viajes: "+vals.tipo+". Publicidad en Meta: "+vals.meta+". Inversi\u00f3n congruente: "+vals.inversion+"."
     +" Estoy listo para invertir."
     +" Email: "+email+". WhatsApp: "+wsp;
   var url="https://wa.me/5491132843293?text="+encodeURIComponent(msg);
@@ -359,7 +370,7 @@ var diffAngulos = [
     heading: 'Todo el embudo en un solo lugar',
     content: '<div class="comp-table">'
       + '<div class="comp-col comp-col--no">'
-      + '<div class="comp-header comp-header--no">Sin Traveleads</div>'
+      + '<div class="comp-header comp-header--no">Sin sistema</div>'
       + '<div class="comp-item"><span class="comp-x">✕</span>Tu equipo pierde tiempo con curiosos</div>'
       + '<div class="comp-item"><span class="comp-x">✕</span>No sab&eacute;s por qu&eacute; no vend&eacute;s</div>'
       + '<div class="comp-item"><span class="comp-x">✕</span>Solo quem&aacute;s plata en publicidad</div>'
