@@ -272,7 +272,7 @@ footer p{font-size:11px;color:rgba(255,255,255,0.20)}
     <div class="og c1" id="g-meta">
       <div class="oc" onclick="pick('g-meta',this,'Si, entre 5 y 10 viajes por mes')"><div class="or"></div><div class="ot">S&iacute;, entre 5 y 10 viajes por mes</div></div>
       <div class="oc" onclick="pick('g-meta',this,'Si, mas de 10 viajes por mes')"><div class="or"></div><div class="ot">S&iacute;, m&aacute;s de 10 viajes por mes</div></div>
-      <div class="oc" onclick="pick('g-meta',this,'No, todavia no vendi nada')"><div class="or"></div><div class="ot">No, todav&iacute;a no vend&iacute; nada</div></div>
+      <div class="oc" onclick="pick('g-meta',this,'No, todavia no vendi nada por anuncios')"><div class="or"></div><div class="ot">No, todav&iacute;a no vend&iacute; nada por anuncios</div></div>
     </div>
   </div>
 
@@ -288,7 +288,7 @@ footer p{font-size:11px;color:rgba(255,255,255,0.20)}
   
 
   <div id="no-califica" style="display:none;background:rgba(255,255,255,0.03);border:1.5px solid rgba(255,255,255,0.10);border-radius:12px;padding:20px 18px;margin-top:16px;text-align:center;">
-    <p style="font-size:14px;font-weight:500;color:rgba(255,255,255,0.65);line-height:1.7;">En este momento trabajamos &uacute;nicamente con agencias de viajes que ya tienen ventas de paquetes tur&iacute;sticos al exterior, dispuestas a invertir en su crecimiento.</p>
+    <p style="font-size:14px;font-weight:500;color:rgba(255,255,255,0.65);line-height:1.7;">Por el momento no tenemos una propuesta que se adapte a tu perfil. Cuando tengamos algo para vos, te lo haremos saber.</p>
   </div>
   <button class="btn btn-grad" id="btn-enviar" onclick="enviar()"><svg viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg><span id="btn-texto" style="display:flex;flex-direction:column;align-items:center;line-height:1.3;text-align:center;"><span>Quiero consultas</span><span>de calidad</span></span></button>
 
@@ -324,20 +324,21 @@ function enviar(){
   if(!wsp){alert("Ingresa tu WhatsApp.");return}
   if(!agencia){alert("Ingresa el nombre de tu agencia.");return}
   if(!vals.tipo){alert("Seleccion\u00e1 el tipo de viajes que vend\u00e9s.");return}
-  if(!vals.vendedores){alert("Selecciona cuantos vendedores tenes.");return}
-  if(!vals.meta){alert("Selecciona tu experiencia con Meta Ads.");return}
+  if(!vals.vendedores){alert("Seleccion\u00e1 cu\u00e1ntos vendedores ten\u00e9s.");return}
+  if(!vals.meta){alert("Respond\u00e9 si ya vend\u00eds con Meta Ads.");return}
   if(!vals.inversion){alert("Seleccion\u00e1 una inversi\u00f3n congruente.");return}
-  var msg="Hola Matias! Me interesa conocer el sistema Funnelab para mi agencia."
-    +" Soy "+nombre+". Instagram: "+agencia+"."
-    +" Tenemos "+vals.vendedores+"."
-    +" Tipo de viajes: "+vals.tipo+". Publicidad en Meta: "+vals.meta+". Inversi\u00f3n congruente: "+vals.inversion+"."
-    +" Estoy listo para invertir."
-    +" Email: "+email+". WhatsApp: "+wsp;
-  var url="https://wa.me/5491132843293?text="+encodeURIComponent(msg);
-  if(typeof fbq!=="undefined"){fbq("track","Lead")}
-  var btnE=document.getElementById("btn-enviar");
-  var btnW=document.getElementById("btn-wsp");
-  btnE.style.display="none";
+  // Validaciones de filtro — mostrar mensaje elegante sin alert
+  var noCal = document.getElementById("no-califica");
+  var noCalifica = false;
+  if(vals.tipo !== 'Emisivo (Caribe, Europa, Asia)') noCalifica = true;
+  if(vals.inversion === "Hasta 300 USD") noCalifica = true;
+  if(vals.vendedores === "Solo yo (1 vendedor)" && vals.meta === "No, todavia no vendi nada por anuncios") noCalifica = true;
+  if(noCalifica){
+    noCal.style.display="block";
+    noCal.scrollIntoView({behavior:"smooth",block:"center"});
+    return;
+  }
+  var msg="Hola Matias, soy "+nombre+". Quiero aplicar tu sistema a mi agencia de viajes.";
   btnW.href=url;btnW.style.display="flex";
   setTimeout(function(){btnW.scrollIntoView({behavior:"smooth",block:"center"});window.open(url,"_blank")},120);
 }
